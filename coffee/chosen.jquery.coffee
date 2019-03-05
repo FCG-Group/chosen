@@ -210,7 +210,10 @@ class Chosen extends AbstractChosen
     this.update_results_content this.results_option_build({first:true})
 
     this.search_field_disabled()
-    this.show_search_field_default()
+    #this.show_search_field_default()
+    # if statement below added to prevent bug in element with multiple selection, when field width would be calculated wrong (visually it looked like text part is cut or hidden).
+    if !this.is_multiple
+      this.show_search_field_default()
     this.search_field_scale()
 
     @parsing = false

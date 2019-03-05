@@ -303,7 +303,14 @@ class AbstractChosen
     setTimeout (=> this.results_search()), 50
 
   container_width: ->
-    return if @options.width? then @options.width else "#{@form_field.offsetWidth}px"
+    #return if @options.width? then @options.width else "#{@form_field.offsetWidth}px"
+    if @options.width?
+        return @options.width
+    width = "" + (@form_field.style.width || @form_field.getAttribute("width") || @form_field.offsetWidth + 16)	# if don't has width, add 16 pixels on arrow-symbol
+    if /^[0-9]+$/.test(width)
+        width += "px"
+    return if (width.indexOf("px") > 0) && (parseInt(width) < 75) then "75px" else width
+    # //				+ (this.form_field.style.getPropertyPriority && (this.form_field.style.getPropertyPriority("width") == "important") ? " !important" : "");	// max: add !important, if require	// turned off, because result pass to $().width(), which support only value
 
   include_option_in_results: (option) ->
     return false if @is_multiple and (not @display_selected_options and option.selected)

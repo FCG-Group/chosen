@@ -80,6 +80,20 @@ class @Chosen extends AbstractChosen
     @search_field.observe "paste", (evt) => this.clipboard_event_checker(evt)
 
     if @is_multiple
+      @form_field_jq.on 'chosen:silent_update', (evt) =>
+        for i in [0..this.form_field.options.length]
+          if this.form_field.options[i].selected
+            this.results_data[i].selected = true
+            if !this.search_choices.find("[data-option-array-index='#{i}']").length
+              this.choice_build(this.result_data[i])
+              this.search_results.find("[data-option-array-index='#{i}']").removeClass("active-result").addClass("result-selected")
+          else
+            this.results_data[i].selected = false;
+            this.search_choices.find("[data-option-array-index='#{i}']").closest("li").remove();
+            this.search_results.find("[data-option-array-index='#{i}']").removeClass("result-selected").addClass("active-result")
+        this.search_field.val("")
+        this.activate_field()
+        return
       @search_choices.observe "click", (evt) => this.choices_click(evt)
     else
       @container.observe "click", (evt) => evt.preventDefault() # gobble click of anchor

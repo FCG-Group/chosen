@@ -81,7 +81,7 @@ class @Chosen extends AbstractChosen
 
     if @is_multiple
       @form_field_jq.on 'chosen:silent_update', (evt) =>
-        for i in [0..this.form_field.options.length]
+        for i in [0..this.form_field.options.length-1]
           if this.form_field.options[i].selected
             this.results_data[i].selected = true
             if !this.search_choices.find("[data-option-array-index='#{i}']").length

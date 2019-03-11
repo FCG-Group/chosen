@@ -106,7 +106,7 @@ class Chosen extends AbstractChosen
           if this.form_field.options[i].selected
             this.results_data[i].selected = true
             if !this.search_choices.find("[data-option-array-index='#{i}']").length
-              this.choice_build(this.result_data[i])
+              this.choice_build(this.results_data[i])
               this.search_results.find("[data-option-array-index='#{i}']").removeClass("active-result").addClass("result-selected")
           else
             this.results_data[i].selected = false;
